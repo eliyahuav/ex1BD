@@ -4,21 +4,7 @@ import pandas as pd
 def q1():
     return """
     SELECT *
-    FROM (
-        SELECT *
-        FROM City
-        ORDER BY id ASC
-        LIMIT 5
-    )
-    UNION ALL
-    SELECT *
-    FROM (
-        SELECT *
-        FROM City
-        ORDER BY id DESC
-        LIMIT 5
-    )
-    ORDER BY id ASC;
+    FROM City
     """
 
 
@@ -54,15 +40,42 @@ def q1():
 #     """
 
 def main():
-    con = sqlite3.connect(r"C:\Users\1\Documents\שנה ד\big data\tar1\World.db3")
+    con = sqlite3.connect(r"World.db3")
 
     for i in range(1, 25):
         func_name = f"q{i}"
         if func_name in globals():
+
             quer = globals()[func_name]()
-            print("="*45 + "\n" + "Question: " + str(i) + "\n" + "The query:" + "\n" + quer)
+
+
+            print("=" * 45)
+            print(f"Question: {i}")
+            print("The query:\n", quer)
+
+            # Execute query and get DataFrame
             df = pd.read_sql_query(quer, con)
-            print(df.head(10))
+
+            total_rows = df.shape[0]
+            # Print total number of rows
+            print("\nNum of rows:", total_rows)
+
+
+            print("\nThe results:")
+
+
+            if total_rows <= 10:
+                # If the table is small, just print it all
+                display_df = df
+            else:
+                # Combine first 5 and last 5 rows with a separator row
+                first5 = df.head(5)
+                last5 = df.tail(5)
+
+                display_df = pd.concat([first5, last5], ignore_index=True)
+
+            print(display_df)
+
 
     con.close()
 
