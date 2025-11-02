@@ -9,35 +9,105 @@ def q1():
 
 
 
-# def q2():
-#     return """
-#     SELECT *
-#     FROM Country
-#     """
-#
-# def q3():
-#     return """
-#     SELECT *
-#     FROM Country
-#     """
-#
-# def q4():
-#     return """
-#     SELECT *
-#     FROM Country
-#     """
-#
-# def q5():
-#     return """
-#     SELECT *
-#     FROM Country
-#     """
-#
-# def q6():
-#     return """
-#     SELECT *
-#     FROM Country
-#     """
+def q2():
+    return """
+    SELECT *
+    FROM Country
+    """
+def q3():
+    return """
+    SELECT *
+    FROM Country
+    WHERE Continent IN ('Asia')
+    """
+
+def q4():
+    return """
+    SELECT *
+    FROM Country
+    WHERE Continent NOT IN ('Asia')
+    """
+
+def q5():
+    return """
+    SELECT *
+    FROM Country
+    WHERE Continent NOT IN ('Asia', 'Europe');
+    """
+
+def q6():
+    return """
+    SELECT *
+    FROM City
+    WHERE Name LIKE 'H%'
+    """
+
+def q7():
+    return """
+    SELECT *
+    FROM Country
+    WHERE Name NOT LIKE '%e%'
+    """
+def q8():
+    return """
+    SELECT *
+    FROM City
+    WHERE CountryCode NOT IN ('GBR');
+    """
+def q9():
+    return """
+    SELECT *
+    FROM City
+    WHERE CountryCode IN ('LBR', 'DOM', 'TKL');
+    """
+def q10():
+    return """
+    SELECT *
+    FROM Country
+    WHERE IndepYear IN (1970, 1981, 1991);
+    """
+def q11():
+    return """
+    SELECT *
+    FROM Country
+    WHERE IndepYear = 1980 AND  IndepYear = 1991;
+    """
+def q12():
+    return """
+    SELECT *
+    FROM Country
+    WHERE IndepYear BETWEEN 1980 AND 1991
+    """
+def q13():
+    return """
+    SELECT *
+    FROM Country
+    WHERE Continent IN('North America') AND  IndepYear > 1902;
+    """
+def q14():
+    return """
+    SELECT *
+    FROM Country
+    WHERE Continent IN('North America') OR  IndepYear > 1901;
+    """
+def q15():
+    return """
+    SELECT *
+    FROM City
+    WHERE Population > 4000000;
+    """
+def q16():
+    return """
+    SELECT *
+    FROM City
+    WHERE Population > 3000000 AND CountryCode IN('CHN') ;
+    """
+def q17():
+    return """
+    SELECT *
+    FROM City
+    WHERE Population BETWEEN 220000 AND 270000;
+    """
 
 def main():
     con = sqlite3.connect(r"World.db3")
