@@ -6,9 +6,6 @@ def q1():
     SELECT *
     FROM City
     """
-
-
-
 def q2():
     return """
     SELECT *
@@ -20,7 +17,6 @@ def q3():
     FROM Country
     WHERE Continent IN ('Asia')
     """
-
 def q4():
     return """
     SELECT *
@@ -108,6 +104,54 @@ def q17():
     FROM City
     WHERE Population BETWEEN 220000 AND 270000;
     """
+def q18():
+    return """
+    SELECT *
+    FROM Country
+    ORDER BY GNP DESC
+    LIMIT 11;
+    """
+def q19():
+    return """
+    SELECT *
+    FROM Country
+    ORDER BY GNP DESC
+    LIMIT 11,8;
+    """
+def q20():
+    return """
+    SELECT *
+    FROM Country
+    ORDER BY GNP ASC
+    LIMIT 10;
+    """
+def q21():
+    return """
+    SELECT DISTINCT *
+    FROM CountryLanguage
+    ORDER BY Language ASC;
+    """
+def q22():
+    return """
+    SELECT *
+    FROM Country
+    ORDER BY IndepYear ASC, Name DESC;
+    """
+def q23():
+    return """
+    SELECT *
+    FROM Country
+    ORDER BY LifeExpectancy DESC;
+    """
+def q24():
+    return """
+    SELECT 
+        Name AS 'Country Name',
+        CONCAT(Continent, ' (', Region, ')') AS 'Continent and Region'
+    FROM Country
+    ORDER BY Name ASC;
+    """
+
 
 def main():
     con = sqlite3.connect(r"World.db3")
@@ -133,6 +177,8 @@ def main():
 
             print("\nThe results:")
 
+            if i == 18:
+                print(df.head(11))
 
             if total_rows <= 10:
                 # If the table is small, just print it all
