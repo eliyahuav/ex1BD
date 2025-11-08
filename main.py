@@ -1,3 +1,6 @@
+#Eliyahu Aviya 208586339
+#Esther Benzaquen 207956673
+
 import sqlite3
 import pandas as pd
 
@@ -23,21 +26,18 @@ def q4():
     FROM Country
     WHERE Continent NOT IN ('Asia')
     """
-
 def q5():
     return """
     SELECT *
     FROM Country
     WHERE Continent NOT IN ('Asia', 'Europe');
     """
-
 def q6():
     return """
     SELECT *
     FROM City
     WHERE Name LIKE 'H%'
     """
-
 def q7():
     return """
     SELECT *
@@ -155,46 +155,45 @@ def q24():
 
 def main():
     con = sqlite3.connect(r"World.db3")
+    output_file = "query_results.txt"
 
-    for i in range(1, 25):
-        func_name = f"q{i}"
-        if func_name in globals():
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write("Eliyahu Aviya 208586339\nEsther Benzaquen 207956673 \n")
 
-            quer = globals()[func_name]()
+        for i in range(1, 25):
+            func_name = f"q{i}"
+            if func_name in globals():
+                query = globals()[func_name]()
 
+                print("=" * 45)
+                print(f"Question: {i}")
+                print("The query:\n", query)
 
-            print("=" * 45)
-            print(f"Question: {i}")
-            print("The query:\n", quer)
+                f.write("=" * 45 + "\n")
+                f.write(f"Question: {i}\n")
+                f.write("The query:\n" + query + "\n")
 
-            # Execute query and get DataFrame
-            df = pd.read_sql_query(quer, con)
+                df = pd.read_sql_query(query, con)
+                total_rows = df.shape[0]
 
-            total_rows = df.shape[0]
-            # Print total number of rows
-            print("\nNum of rows:", total_rows)
+                print("\nNum of rows:", total_rows)
+                f.write(f"\nNum of rows: {total_rows}\n")
 
+                print("\nThe results:")
+                f.write("\nThe results:\n")
 
-            print("\nThe results:")
+                if total_rows <= 10:
+                    display_df = df
+                else:
+                    first5 = df.head(5)
+                    last5 = df.tail(5)
+                    display_df = pd.concat([first5, last5], ignore_index=True)
 
-            if i == 18:
-                print(df.head(11))
-
-            if total_rows <= 10:
-                # If the table is small, just print it all
-                display_df = df
-            else:
-                # Combine first 5 and last 5 rows with a separator row
-                first5 = df.head(5)
-                last5 = df.tail(5)
-
-                display_df = pd.concat([first5, last5], ignore_index=True)
-
-            print(display_df)
-
+                print(display_df)
+                f.write(display_df.to_string(index=False))
+                f.write("\n\n")
 
     con.close()
-
 
 
 if __name__ == "__main__":
